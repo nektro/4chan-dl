@@ -50,6 +50,12 @@ func main() {
 
 	//
 
+	for _, item := range *flagBoards {
+		grabBoard(item)
+	}
+
+	//
+
 	if len(*flagBoards) == 0 {
 		grabAllBoards()
 	}
@@ -120,5 +126,23 @@ func grabThread(board, id string) {
 			go mbpp.CreateDownloadJob(u, dir+"/"+t+e, bar)
 		}
 		bar.Wait()
+	})
+}
+
+func grabAllBoards() {
+	mbpp.CreateJob("4chan.org", func(bar *mbpp.BarProxy) {
+		req, _ := http.NewRequest(http.MethodGet, "https://p.4chan.org/4chan/boards", nil)
+		req.Header.Add("user-agent", "nektro/4chan-dl")
+		req.Header.Add("accept", "text/html")
+		res, _ := http.DefaultClient.Do(req)
+		bys, _ := ioutil.ReadAll(res.Body)
+		val, _ := fastjson.ParseBytes(bys)
+		//
+		ar := val.GetArray("body", "boards")
+		bar.AddToTotal(int64(len(ar)))
+		for _, item := range ar {
+			grabBoard(string(item.GetStringBytes("board")))
+			bar.Increment(1)
+		}
 	})
 }
