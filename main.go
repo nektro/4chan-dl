@@ -21,7 +21,7 @@ var (
 
 func main() {
 
-	flagBoards := pflag.StringArrayP("board", "b", []string{}, "")
+	flagBoards := pflag.StringArrayP("board", "b", []string{}, "/--board/ to download.")
 
 	flagSaveDir := pflag.String("save-dir", "", "Path to a directory to save to.")
 	flagConcurr := pflag.Int("concurrency", 10, "Maximum number of simultaneous downloads.")
