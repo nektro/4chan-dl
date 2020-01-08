@@ -109,6 +109,7 @@ func grabThread(board, id string) {
 		bar.AddToTotal(int64(len(ar)))
 		for _, item := range ar {
 			t := strconv.Itoa(item.GetInt("tim"))
+			f := string(item.GetStringBytes("filename"))
 			e := string(item.GetStringBytes("ext"))
 			u := "https://i.4cdn.org/" + board + "/" + t + e
 			//
@@ -121,7 +122,7 @@ func grabThread(board, id string) {
 				m = true
 			}
 			//
-			go mbpp.CreateDownloadJob(u, dir+"/"+t+e, bar)
+			go mbpp.CreateDownloadJob(u, dir+"/"+t+"_"+f+e, bar)
 		}
 		bar.Wait()
 	})
