@@ -72,7 +72,6 @@ func grabBoard(board string) {
 	mbpp.CreateJob("/"+board+"/", func(bar *mbpp.BarProxy) {
 		req, _ := http.NewRequest(http.MethodGet, "https://p.4chan.org/4chan/board/"+board+"/catalog", nil)
 		req.Header.Add("user-agent", "nektro/4chan-dl")
-		req.Header.Add("accept", "text/html")
 		res, _ := http.DefaultClient.Do(req)
 		bys, _ := ioutil.ReadAll(res.Body)
 		val, _ := fastjson.ParseBytes(bys)
@@ -100,7 +99,6 @@ func grabThread(board, id string) {
 	mbpp.CreateJob("/"+board+"/"+id+"/", func(bar *mbpp.BarProxy) {
 		req, _ := http.NewRequest(http.MethodGet, "https://p.4chan.org/4chan/board/"+board+"/thread/"+id, nil)
 		req.Header.Add("user-agent", "nektro/4chan-dl")
-		req.Header.Add("accept", "text/html")
 		res, _ := http.DefaultClient.Do(req)
 		bys, _ := ioutil.ReadAll(res.Body)
 		val, _ := fastjson.ParseBytes(bys)
@@ -132,7 +130,6 @@ func grabAllBoards() {
 	mbpp.CreateJob("4chan.org", func(bar *mbpp.BarProxy) {
 		req, _ := http.NewRequest(http.MethodGet, "https://p.4chan.org/4chan/boards", nil)
 		req.Header.Add("user-agent", "nektro/4chan-dl")
-		req.Header.Add("accept", "text/html")
 		res, _ := http.DefaultClient.Do(req)
 		bys, _ := ioutil.ReadAll(res.Body)
 		val, _ := fastjson.ParseBytes(bys)
