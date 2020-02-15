@@ -24,6 +24,7 @@ Usage of ./4chan-dl:
   -b, --board stringArray   /--board/ to download.
       --concurrency int     Maximum number of simultaneous downloads. (default 10)
       --save-dir string     Path to a directory to save to.
+      --mbpp-bar-gradient   Enabling this will make the bar gradient from red/yellow/green.
 ```
 
 ### Example:
