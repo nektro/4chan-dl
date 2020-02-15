@@ -27,8 +27,6 @@ func main() {
 
 	pflag.Parse()
 
-	//
-
 	if len(*flagSaveDir) > 0 {
 		DoneDir = *flagSaveDir
 	}
@@ -36,24 +34,16 @@ func main() {
 	DoneDir += "/4chan.org"
 	os.MkdirAll(DoneDir, os.ModePerm)
 
-	//
-
 	util.RunOnClose(onClose)
 	mbpp.Init(*flagConcurr)
-
-	//
 
 	for _, item := range *flagBoards {
 		grabBoard(item)
 	}
 
-	//
-
 	if len(*flagBoards) == 0 {
 		grabAllBoards()
 	}
-
-	//
 
 	mbpp.Wait()
 	time.Sleep(time.Second)
@@ -98,7 +88,6 @@ func grabThread(board, id string, bar *mbpp.BarProxy) {
 	val, _ := fastjson.ParseBytes(bys)
 	//
 	ar := val.GetArray("body", "posts")
-	// bar.AddToTotal(int64(len(ar)))
 	for _, item := range ar {
 		t := strconv.Itoa(item.GetInt("tim"))
 		f := string(item.GetStringBytes("filename"))
@@ -106,7 +95,6 @@ func grabThread(board, id string, bar *mbpp.BarProxy) {
 		u := "https://i.4cdn.org/" + board + "/" + t + e
 		//
 		if len(e) == 0 {
-			// bar.Increment(1) // this post does not have an attachment
 			continue
 		}
 		bar.AddToTotal(1)
@@ -114,7 +102,6 @@ func grabThread(board, id string, bar *mbpp.BarProxy) {
 			os.MkdirAll(dir, os.ModePerm)
 			m = true
 		}
-		//
 		go mbpp.CreateDownloadJob(u, dir+"/"+t+"_"+f+e, bar)
 	}
 }
@@ -126,7 +113,6 @@ func grabAllBoards() {
 		res, _ := http.DefaultClient.Do(req)
 		bys, _ := ioutil.ReadAll(res.Body)
 		val, _ := fastjson.ParseBytes(bys)
-		//
 		ar := val.GetArray("body", "boards")
 		bar.AddToTotal(int64(len(ar)))
 		for _, item := range ar {
