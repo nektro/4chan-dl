@@ -80,9 +80,9 @@ func grabBoard(board string) {
 				ids = append(ids, strconv.Itoa(jtem.GetInt("no")))
 			}
 		}
-		bar.AddToTotal(int64(len(ids)))
 		for _, item := range ids {
 			go grabThread(board, item, bar)
+			time.Sleep(time.Second / 4)
 		}
 	})
 }
@@ -116,7 +116,6 @@ func grabThread(board, id string, bar *mbpp.BarProxy) {
 		//
 		go mbpp.CreateDownloadJob(u, dir+"/"+t+"_"+f+e, bar)
 	}
-	bar.Increment(1)
 }
 
 func grabAllBoards() {
