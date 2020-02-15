@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"time"
 
 	"github.com/nektro/go-util/mbpp"
 	"github.com/nektro/go-util/util"
@@ -55,6 +56,7 @@ func main() {
 	//
 
 	mbpp.Wait()
+	time.Sleep(time.Second)
 	onClose()
 }
 
