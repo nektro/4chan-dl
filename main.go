@@ -82,44 +82,41 @@ func grabBoard(board string) {
 		}
 		bar.AddToTotal(int64(len(ids)))
 		for _, item := range ids {
-			grabThread(board, item)
-			bar.Increment(1)
+			go grabThread(board, item, bar)
 		}
 	})
 }
 
-func grabThread(board, id string) {
+func grabThread(board, id string, bar *mbpp.BarProxy) {
 	dir := DoneDir + "/" + board + "/" + id
 	m := false
 	//
-	mbpp.CreateJob("/"+board+"/"+id+"/", func(bar *mbpp.BarProxy) {
-		req, _ := http.NewRequest(http.MethodGet, "https://p.4chan.org/4chan/board/"+board+"/thread/"+id, nil)
-		req.Header.Add("user-agent", "nektro/4chan-dl")
-		res, _ := http.DefaultClient.Do(req)
-		bys, _ := ioutil.ReadAll(res.Body)
-		val, _ := fastjson.ParseBytes(bys)
+	req, _ := http.NewRequest(http.MethodGet, "https://p.4chan.org/4chan/board/"+board+"/thread/"+id, nil)
+	req.Header.Add("user-agent", "nektro/4chan-dl")
+	res, _ := http.DefaultClient.Do(req)
+	bys, _ := ioutil.ReadAll(res.Body)
+	val, _ := fastjson.ParseBytes(bys)
+	//
+	ar := val.GetArray("body", "posts")
+	bar.AddToTotal(int64(len(ar)))
+	for _, item := range ar {
+		t := strconv.Itoa(item.GetInt("tim"))
+		f := string(item.GetStringBytes("filename"))
+		e := string(item.GetStringBytes("ext"))
+		u := "https://i.4cdn.org/" + board + "/" + t + e
 		//
-		ar := val.GetArray("body", "posts")
-		bar.AddToTotal(int64(len(ar)))
-		for _, item := range ar {
-			t := strconv.Itoa(item.GetInt("tim"))
-			f := string(item.GetStringBytes("filename"))
-			e := string(item.GetStringBytes("ext"))
-			u := "https://i.4cdn.org/" + board + "/" + t + e
-			//
-			if len(e) == 0 {
-				bar.Increment(1)
-				continue
-			}
-			if !m {
-				os.MkdirAll(dir, os.ModePerm)
-				m = true
-			}
-			//
-			go mbpp.CreateDownloadJob(u, dir+"/"+t+"_"+f+e, bar)
+		if len(e) == 0 {
+			bar.Increment(1) // this post does not have an attachment
+			continue
 		}
-		bar.Wait()
-	})
+		if !m {
+			os.MkdirAll(dir, os.ModePerm)
+			m = true
+		}
+		//
+		go mbpp.CreateDownloadJob(u, dir+"/"+t+"_"+f+e, bar)
+	}
+	bar.Increment(1)
 }
 
 func grabAllBoards() {
