@@ -25,7 +25,8 @@ Usage of ./4chan-dl:
       --concurrency int     Maximum number of simultaneous downloads. (default 10)
       --save-dir string     Path to a directory to save to.
 ```
-Example:
+
+### Example:
 ```
 $ 4chan-dl --board wg --save-dir ./downloads/
 ```
