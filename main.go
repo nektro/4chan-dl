@@ -37,11 +37,6 @@ func main() {
 
 	//
 
-	util.Log("--save-dir", DoneDir)
-	util.Log("--concurrency", *flagConcurr)
-
-	//
-
 	util.RunOnClose(onClose)
 	mbpp.Init(*flagConcurr)
 	mbpp.SetBarStyle("|-ᗧ•ᗣ")
