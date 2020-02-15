@@ -10,13 +10,8 @@
 
 Media downloader for 4chan.org.
 
-## Prerequisites
-- Golang 1.12+
-
-## Installing
-```sh
-$ go get -v -u github.com/nektro/4chan-dl
-```
+## Download
+https://github.com/nektro/4chan-dl/releases
 
 ## Usage
 ```
