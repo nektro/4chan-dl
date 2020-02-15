@@ -27,6 +27,8 @@ Usage of ./4chan-dl:
       --mbpp-bar-gradient   Enabling this will make the bar gradient from red/yellow/green.
 ```
 
+> Note: Not passing `--board` instructs the program to download all boards.
+
 ### Example:
 ```
 $ 4chan-dl --board wg --save-dir ./downloads/
