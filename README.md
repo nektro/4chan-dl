@@ -1,7 +1,7 @@
 # 4chan-dl
 ![loc](https://sloc.xyz/github/nektro/4chan-dl)
 [![license](https://img.shields.io/github/license/nektro/4chan-dl.svg)](https://github.com/nektro/4chan-dl/blob/master/LICENSE)
-[![discord](https://img.shields.io/discord/302796547656253441.svg)](https://discord.gg/the-eye)
+[![discord](https://img.shields.io/discord/551971034593755159.svg)](https://discord.gg/P6Y4zQC)
 [![circleci](https://circleci.com/gh/nektro/4chan-dl.svg?style=svg)](https://circleci.com/gh/nektro/4chan-dl)
 [![goreportcard](https://goreportcard.com/badge/github.com/nektro/4chan-dl)](https://goreportcard.com/report/github.com/nektro/4chan-dl)
 
