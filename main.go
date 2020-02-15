@@ -98,7 +98,7 @@ func grabThread(board, id string, bar *mbpp.BarProxy) {
 	val, _ := fastjson.ParseBytes(bys)
 	//
 	ar := val.GetArray("body", "posts")
-	bar.AddToTotal(int64(len(ar)))
+	// bar.AddToTotal(int64(len(ar)))
 	for _, item := range ar {
 		t := strconv.Itoa(item.GetInt("tim"))
 		f := string(item.GetStringBytes("filename"))
@@ -106,9 +106,10 @@ func grabThread(board, id string, bar *mbpp.BarProxy) {
 		u := "https://i.4cdn.org/" + board + "/" + t + e
 		//
 		if len(e) == 0 {
-			bar.Increment(1) // this post does not have an attachment
+			// bar.Increment(1) // this post does not have an attachment
 			continue
 		}
+		bar.AddToTotal(1)
 		if !m {
 			os.MkdirAll(dir, os.ModePerm)
 			m = true
