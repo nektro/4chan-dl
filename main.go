@@ -39,7 +39,6 @@ func main() {
 
 	util.RunOnClose(onClose)
 	mbpp.Init(*flagConcurr)
-	mbpp.SetBarStyle("|-ᗧ•ᗣ")
 
 	//
 
