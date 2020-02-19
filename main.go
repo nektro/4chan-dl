@@ -15,7 +15,7 @@ import (
 )
 
 var (
-	DoneDir = "./data/"
+	doneDir = "./data/"
 )
 
 func main() {
@@ -28,11 +28,11 @@ func main() {
 	pflag.Parse()
 
 	if len(*flagSaveDir) > 0 {
-		DoneDir = *flagSaveDir
+		doneDir = *flagSaveDir
 	}
-	DoneDir, _ = filepath.Abs(DoneDir)
-	DoneDir += "/4chan.org"
-	os.MkdirAll(DoneDir, os.ModePerm)
+	doneDir, _ = filepath.Abs(doneDir)
+	doneDir += "/4chan.org"
+	os.MkdirAll(doneDir, os.ModePerm)
 
 	util.RunOnClose(onClose)
 	mbpp.Init(*flagConcurr)
@@ -78,7 +78,7 @@ func grabBoard(board string) {
 }
 
 func grabThread(board, id string, bar *mbpp.BarProxy) {
-	dir := DoneDir + "/" + board + "/" + id
+	dir := doneDir + "/" + board + "/" + id
 	m := false
 	//
 	req, _ := http.NewRequest(http.MethodGet, "https://p.4chan.org/4chan/board/"+board+"/thread/"+id, nil)
