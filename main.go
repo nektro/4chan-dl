@@ -27,6 +27,8 @@ func main() {
 
 	pflag.Parse()
 
+	//
+
 	if len(*flagSaveDir) > 0 {
 		doneDir = *flagSaveDir
 	}
@@ -34,8 +36,12 @@ func main() {
 	doneDir += "/4chan.org"
 	os.MkdirAll(doneDir, os.ModePerm)
 
+	//
+
 	util.RunOnClose(onClose)
 	mbpp.Init(*flagConcurr)
+
+	//
 
 	for _, item := range *flagBoards {
 		grabBoard(item)
@@ -44,6 +50,8 @@ func main() {
 	if len(*flagBoards) == 0 {
 		grabAllBoards()
 	}
+
+	//
 
 	mbpp.Wait()
 	time.Sleep(time.Second)
