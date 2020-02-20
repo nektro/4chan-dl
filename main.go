@@ -116,6 +116,9 @@ func grabThread(board, id string, bar *mbpp.BarProxy) {
 					item.GetStringBytes("now"),
 					item.GetStringBytes("name"),
 					item.GetStringBytes("com"),
+					item.GetStringBytes("tim"),
+					item.GetStringBytes("filename"),
+					item.GetStringBytes("ext"),
 				},
 				[]byte("\n"),
 			))
