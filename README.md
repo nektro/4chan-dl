@@ -8,7 +8,7 @@
 [![goreportcard](https://goreportcard.com/badge/github.com/nektro/4chan-dl)](https://goreportcard.com/report/github.com/nektro/4chan-dl)
 [![codefactor](https://www.codefactor.io/repository/github/nektro/4chan-dl/badge)](https://www.codefactor.io/repository/github/nektro/4chan-dl)
 
-Media downloader for 4chan.org.
+Post downloader for 4chan.org.
 
 ## Download
 https://github.com/nektro/4chan-dl/releases
