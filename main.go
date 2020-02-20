@@ -77,7 +77,7 @@ func grabBoard(board string) {
 		res, _ := http.DefaultClient.Do(req)
 		bys, _ := ioutil.ReadAll(res.Body)
 		val, _ := fastjson.ParseBytes(bys)
-		//
+
 		ar1 := val.GetArray("body")
 		ids := []string{}
 		for _, item := range ar1 {
@@ -96,13 +96,13 @@ func grabBoard(board string) {
 func grabThread(board, id string, bar *mbpp.BarProxy) {
 	dir := doneDir + "/" + board + "/" + id
 	m := false
-	//
+
 	req, _ := http.NewRequest(http.MethodGet, "https://p.4chan.org/4chan/board/"+board+"/thread/"+id, nil)
 	req.Header.Add("user-agent", "nektro/4chan-dl")
 	res, _ := http.DefaultClient.Do(req)
 	bys, _ := ioutil.ReadAll(res.Body)
 	val, _ := fastjson.ParseBytes(bys)
-	//
+
 	ar := val.GetArray("body", "posts")
 
 	dbC.Update(func(tx *bbolt.Tx) error {
@@ -131,7 +131,7 @@ func grabThread(board, id string, bar *mbpp.BarProxy) {
 		f := string(item.GetStringBytes("filename"))
 		e := string(item.GetStringBytes("ext"))
 		u := "https://i.4cdn.org/" + board + "/" + t + e
-		//
+
 		if len(e) == 0 {
 			continue
 		}
