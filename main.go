@@ -104,6 +104,9 @@ func grabThread(board, id string, bar *mbpp.BarProxy) {
 	val, _ := fastjson.ParseBytes(bys)
 
 	ar := val.GetArray("body", "posts")
+	if len(ar) == 0 {
+		return
+	}
 
 	dbC.Update(func(tx *bbolt.Tx) error {
 		b1, _ := tx.CreateBucketIfNotExists([]byte(board))
