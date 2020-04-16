@@ -113,7 +113,11 @@ func grabThread(board, id string, bar *mbpp.BarProxy) {
 		b2, _ := b1.CreateBucketIfNotExists([]byte(id))
 		b2.Put([]byte("title"), ar[0].GetStringBytes("sub"))
 		for i, item := range ar {
-			b2.Put([]byte("c"+strconv.Itoa(i)), bytes.Join(
+			kn := []byte("c" + strconv.Itoa(i))
+			if b2.Get(kn) != nil {
+				continue
+			}
+			b2.Put(kn, bytes.Join(
 				[][]byte{
 					[]byte(strconv.FormatInt(int64(item.GetFloat64("no")), 10)),
 					item.GetStringBytes("now"),
